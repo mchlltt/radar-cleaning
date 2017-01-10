@@ -21,11 +21,11 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 This file is the code for a bookmarklet that loads jQuery and then pulls survey dates and participant IDs from REDCap ([Research Electronic Data Capture](https://catalyst.harvard.edu/services/redcap/)). If you have access to RADAR Survey data in REDCap, you can use this script by taking the following steps.
 - Create a new bookmark in your browser.
 - Set the title of the bookmark to 'REDCap jQuery' or something else that you will understand.
-- Copy the text in REDCapjQuery.js.
+- Copy the text in `REDCapjQuery.js`.
 - Paste the contents of REDCapjQuery.js into the URL field of the new bookmark.
 - Click this bookmark when you are on the RADAR Survey/Demographics page.
 - Open your browser's developer tools. In Chrome, you can do this by right-clicking the page and selecting `Inspect Element` or by hitting 'Control-Shift-C' or 'Command-Shift-C'.
 - If you are not already there, navigate to the 'Console' tab of the developer tools.
-- Refer to your copy of REDCapIds.csv and identify the latest included ID.
+- Refer to your copy of `REDCapIds.txt` and identify the latest included ID.
 - Copy from your console output beginning at the first new ID.
-- Paste into REDCapIds.csv.
+- Paste into `REDCapIds.txt`.
