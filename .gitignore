@@ -1,3 +1,10 @@
+# Private files
+corrections.json
+corrections.xlsx
+redCapIds.csv
+configure_networkscripts.txt
+Obsolete/
+
 # History files
 .Rhistory
 .Rapp.history
