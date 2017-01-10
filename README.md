@@ -17,7 +17,7 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 - A sample `corrections.json` file will be included once this transition is completed.
 - You can view the project to change how corrections are tracked at https://github.com/mchlltt/inquirer-corrections.
 
-## Regarding REDCapjQuery.js
+## Regarding `REDCapjQuery.js`
 This file is the code for a bookmarklet that loads jQuery and then pulls survey dates and participant IDs from REDCap ([Research Electronic Data Capture](https://catalyst.harvard.edu/services/redcap/)). If you have access to RADAR Survey data in REDCap, you can use this script by taking the following steps.
 - Create a new bookmark in your browser.
 - Set the title of the bookmark to 'REDCap jQuery' or something else that you will understand.
