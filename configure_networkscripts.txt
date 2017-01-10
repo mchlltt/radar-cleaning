@@ -1,0 +1,1 @@
+writeLines('This is a placeholder. Please request this configuration file from the Network Team.')
