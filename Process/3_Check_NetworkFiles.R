@@ -7,13 +7,15 @@
 library(stringr)
 
 # Read settings file.
-# It's not guaranteed whether the working directory is Scripts/ or Scripts/Process, so try both paths to settings.
+# It's not guaranteed whether the working directory is Scripts or Scripts/Process, so try both paths to settings.
 tryCatch({
   con <- file("configure_networkscripts.txt")
   source(con)
-}, error = function() {
+}, error = function(e) {
   con <- file("../configure_networkscripts.txt")
   source(con)
+}, warning = function(w) {
+  # Ignore warning, because it is redundant.
 }, finally = {
   close(con)
 })
@@ -89,7 +91,7 @@ if (length(redCapIdWarn$redCapId) == 0) {
   writeLines("  No health surveys without corresponding network interview data.")
 } else {
   # If there are files missing, indicate how many and which.
-  writeLines(paste(" ",capitalize(replace_number(length(redCapIdWarn$redCapId))),"health survey(s) without corresponding network interview data:"))
+  writeLines(paste(" ",length(redCapIdWarn$redCapId),"health survey(s) without corresponding network interview data:"))
   writeLines(paste0("    ",redCapIdWarn$redCapId,",",redCapIdWarn$date))
 }
 writeLines("")
@@ -99,19 +101,19 @@ if (length(networkIdWarn$networkId) == 0) {
   writeLines("  No network interviews without corresponding health survey data.")
 } else {
   # If there are data missing, indicate how many and which.
-  writeLines(paste(" ",capitalize(replace_number(length(networkIdWarn$networkId))),"network interview(s) without corresponding health survey data:"))
+  writeLines(paste(" ",length(networkIdWarn$networkId),"network interview(s) without corresponding health survey data:"))
   writeLines(paste0("    ",networkIdWarn$networkId,",",networkIdWarn$date))}
 
 # Duplicated REDCap IDs.
 if (length(redCapIdDuplicates$redCapId) > 0) {
   writeLines("")
-  writeLines(paste(" ",capitalize(replace_number(length(redCapIdDuplicates$redCapId))),"duplicate REDCap IDs:"))
+  writeLines(paste(" ",length(redCapIdDuplicates$redCapId),"duplicate REDCap IDs:"))
   writeLines(paste0("    ",redCapIdDuplicates$redCapId,",",redCapIdDuplicates$date))
 }
 
 # Duplicated network IDs.
 if (length(networkIdDuplicates$networkId) > 0) {
   writeLines("")
-  writeLines(paste(" ",capitalize(replace_number(length(networkIdDuplicates$networkId))),"duplicate Network Interview IDs:"))
+  writeLines(paste(" ",length(networkIdDuplicates$networkId),"duplicate Network Interview IDs:"))
   writeLines(paste0("    ",networkIdDuplicates$networkId,",",networkIdDuplicates$date))
 }

@@ -11,13 +11,15 @@ library(rjson)
 library(stringr)
 
 # Read settings file.
-# It's not guaranteed whether the working directory is Scripts/ or Scripts/Process, so try both paths to settings.
+# It's not guaranteed whether the working directory is Scripts or Scripts/Process, so try both paths to settings.
 tryCatch({
   con <- file("configure_networkscripts.txt")
   source(con)
-}, error = function() {
+}, error = function(e) {
   con <- file("../configure_networkscripts.txt")
   source(con)
+}, warning = function(w) {
+  # Ignore warning, because it is redundant.
 }, finally = {
   close(con)
 })

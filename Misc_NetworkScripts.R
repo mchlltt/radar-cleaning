@@ -4,28 +4,37 @@
 # You can also always run any of these scripts individually by opening the script file.
 
 # Read settings file.
-# Try to read from this directory. If it's not here, try the next directory up.
+# It's not guaranteed whether the working directory is Scripts or Scripts/Misc, so try both paths to settings.
+# Based on which path works, you know which directory to search with `list.files`
 tryCatch({
+  # Source settings file.
   con <- file("configure_miscscripts.txt")
   source(con)
+
+  # List R script files in the misc scripts folder.
+  filenames = list.files(path = "Misc/",pattern = "*.R",full.names = TRUE)
 }, error = function(e) {
+  # Source settings file.
   con <- file("../configure_miscscripts.txt")
   source(con)
+
+  # List R script files in the misc scripts folder.
+  filenames = list.files(path = "../Misc/",pattern = "*.R",full.names = TRUE)
+}, warning = function(w) {
+  # Ignore warning, because it is redundant.
 }, finally = {
+  # Close the connection.
   close(con)
 })
 
-# List R script files in this folder.
-filenames = list.files("./", pattern = "*.R", full.names = TRUE)
-
-# Select appropriate scripts. Use grep to allow for changing filename dates.
-altGen <- grep("Alt Gen Stats", filenames, value = TRUE)
-issue28 <- grep("Issue 28", filenames, value = TRUE)
-genCodes <- grep("Generate Codes", filenames, value = TRUE)
-partnerNames <- grep("Partner Names", filenames, value = TRUE)
-uneditedChecks <- grep("Unedited Checks", filenames, value = TRUE)
+# Select appropriate scripts. Use grep in case anything is appended to the end of a filename.
+altGen <- grep("Alter_Generation_Stats", filenames, value = TRUE)
+issue28 <- grep("Issue_28", filenames, value = TRUE)
+genCodes <- grep("Generate_Codes", filenames, value = TRUE)
+partnerNames <- grep("Partner_Names", filenames, value = TRUE)
+uneditedChecks <- grep("Unedited_Checks", filenames, value = TRUE)
 weeklyUpdate <- grep("weeklyUpdate", filenames, value = TRUE)
-PLoTMEPull <- grep("PLoT", filenames, value = TRUE)
+PLoTMEPull <- grep("PLoT_ME", filenames, value = TRUE)
 
 # Check that you aren't missing any scripts and that you don't have multiple versions of a single script.
 # If the check passes, we can now consider each script individually.

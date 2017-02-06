@@ -6,13 +6,15 @@ library(stringr)
 library(rjson)
 
 # Read settings file.
-# Try to read from this directory. If it's not there, try the next directory up.
+# It's not guaranteed whether the working directory is Scripts or Scripts/Misc, so try both paths to settings.
 tryCatch({
   con <- file("configure_miscscripts.txt")
   source(con)
-}, error = function() {
+}, error = function(e) {
   con <- file("../configure_miscscripts.txt")
   source(con)
+}, warning = function(w) {
+  # Ignore warning, because it is redundant.
 }, finally = {
   close(con)
 })
