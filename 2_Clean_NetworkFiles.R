@@ -10,24 +10,33 @@
 suppressMessages(library(xlsx))
 # For substrings.
 library(stringr)
+# For concatenation.
+library(stringi)
 # For reading JSON files.
 library(rjson)
 
-## Settings ##
-con <- file("../configure_networkscripts.txt")
-source(con)
-close(con)
+# Read settings file.
+# It's not guaranteed whether the working directory is Scripts/ or Scripts/Process, so try both paths to settings.
+tryCatch({
+  con <- file("configure_networkscripts.txt")
+  source(con)
+}, error = function(e) {
+  con <- file("../configure_networkscripts.txt")
+  source(con)
+}, finally = {
+  close(con)
+})
 
 ## Set folder name shortcuts. ##
 # To use a test Raw folder, set test.in.clean to TRUE.
-if (test.in.clean == TRUE) {
+if (test.in.clean) {
   folder.in <- folder.in.clean.test
 } else {
   folder.in <- folder.in.clean.default
 }
 
 # To use a test Analysis Ready folder, set test.out.clean to TRUE.
-if (test.out.clean == TRUE) {
+if (test.out.clean) {
   folder.out <- folder.out.clean.test
 } else {
   folder.out <- folder.out.clean.default
@@ -35,7 +44,7 @@ if (test.out.clean == TRUE) {
 
 ## Read in corrections.csv ##
 # To use a test corrections file, set correctionsPath.test to TRUE.
-if (test.clean.corrections == TRUE) {
+if (test.clean.corrections) {
   correctionsPath <- correctionsPath.test
 } else {
   correctionsPath <- correctionsPath.default
@@ -60,9 +69,9 @@ for (i in 1:length(folders)) {
 }
 
 # Determines which files will be cleaned.
-if (all == TRUE) {
+if (all) {
   # If you want to reclean all files, change all to TRUE.
-  writeLines("  Processing ALL files. (If this isn't what you wanted, hit CTRL+R to abort,
+  writeLines("  Processing ALL files. (If this isn't what you wanted, hit CTRL+C to abort,
   then set 'all' to FALSE in the settings file.)")
 } else {
   # By default, today and the prior 4 days files are cleaned. To change this number, change daysBeforeToday in the settings file.
@@ -92,7 +101,7 @@ if (length(files) == 0) {
       rowNum <- which(paste0(corrections$radaridis,corrections$ftime) %in% paste0(json$nodes[[1]]$radar_id,json$nodes[[1]]$int_ftime_t0))
     }
     ## If corrections are needed, apply those that are needed. ##
-    if (needsCorrected == TRUE) {
+    if (needsCorrected) {
       ## If the file needs to be skipped, add a tally to the number skipped and move to the next file. ##
       if (nchar(corrections$skip[rowNum]) > 0) {
         numSkipped <- numSkipped + 1
@@ -286,14 +295,21 @@ if (length(files) == 0) {
         json$edges[[newedgenumber]]$type <- corrections$newedgetype1[rowNum]
         json$edges[[newedgenumber]]$from <- as.integer(corrections$newedgefrom1[rowNum])
         json$edges[[newedgenumber]]$to <- as.integer(corrections$newedgeto1[rowNum])
-        # If it's a dyad edge between two alters, add k_or_p_t0: perceived.
-        if ((identical(corrections$newedgetype1[rowNum],"Dyad")) & (!identical(corrections$newedgefrom1[rowNum],"0"))) {
-          json$edges[[newedgenumber]]$k_or_p_t0 <- "pereceived"
-          # Remove the undesirable first item.
-          json$edges[[newedgenumber]] <- json$edges[[newedgenumber]][c(2:6)]
+        if (strsplit(corrections$newedgetype1[rowNum], ' ')[[1]][1] == 'Role') {
+          json$edges[[newedgenumber]]$type <- 'Role'
+          json$edges[[newedgenumber]]$reltype_main_t0 <- strsplit(corrections$newedgetype1[rowNum], ' ')[[1]][2]
+          json$edges[[newedgenumber]]$reltype_sub_t0 <- stri_flatten(strsplit(corrections$newedgetype1[rowNum], ' ')[[1]][-(1:2)], collapse = ' ')
+          json$edges[[newedgenumber]] <- json$edges[[newedgenumber]][c(2:7)]
         } else {
-          # Remove the undesirable first item.
-          json$edges[[newedgenumber]] <- json$edges[[newedgenumber]][c(2:5)]
+          # If it's a dyad edge between two alters, add k_or_p_t0: perceived.
+          if ((identical(corrections$newedgetype1[rowNum],"Dyad")) & (!identical(corrections$newedgefrom1[rowNum],"0"))) {
+            json$edges[[newedgenumber]]$k_or_p_t0 <- "pereceived"
+            # Remove the undesirable first item.
+            json$edges[[newedgenumber]] <- json$edges[[newedgenumber]][c(2:6)]
+          } else {
+            # Remove the undesirable first item.
+            json$edges[[newedgenumber]] <- json$edges[[newedgenumber]][c(2:5)]
+          }
         }
       }
       # See comments on newedgeid1 above for explanation.

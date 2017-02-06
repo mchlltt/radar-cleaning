@@ -10,10 +10,17 @@ library(rjson)
 # For substrings.
 library(stringr)
 
-## Settings ##
-con <- file("../configure_networkscripts.txt")
-source(con)
-close(con)
+# Read settings file.
+# It's not guaranteed whether the working directory is Scripts/ or Scripts/Process, so try both paths to settings.
+tryCatch({
+  con <- file("configure_networkscripts.txt")
+  source(con)
+}, error = function(e) {
+  con <- file("../configure_networkscripts.txt")
+  source(con)
+}, finally = {
+  close(con)
+})
 
 ## Set folder name shortcuts. ##
 # If you want to use a test Incoming folder, set test.in.trans in the settings file to TRUE.
@@ -57,11 +64,28 @@ if (numFiles > 0) {
         # Get RADAR ID and interview date from JSON.
         radarID <- json$nodes[[1]]$radar_id
         intdate <- gsub("-","",substr(json$log[[75]]$eventTime,1,10))
+
+        # Default visit number of 1.
+        visitNumber <- 1
+
+        # If there is a visit number on the ego node, overwrite the default visit number.
+        if (!is.null(json$nodes[[1]]$visit_number)) {
+          visitNumber <- json$nodes[[1]]$visit_number
+        }
+
+
         # Copy the file to Raw/V#/Unedited/.
-        file.copy(paste0(folder.in,files[i]),paste0(folder.out,"V",json$nodes[[1]]$visit_number,"/Unedited/",files[i]))
-        # Copy a renamed file to Raw/V#/.
-        file.rename(paste0(folder.in,files[i]),paste0(folder.out,"V",json$nodes[[1]]$visit_number,"/",paste(radarID,paste0("Network_Interview_V",json$nodes[[1]]$visit_number),paste0(intdate,".json"),sep = "_")))
-        # Incrment counter.
+        file.copy(paste0(folder.in,files[i]),paste0(folder.out,"V",visitNumber,"/Unedited/",files[i]))
+
+        # If the file doesn't have 'Interview' in the name,
+        if (length(grep('Interview', files[i])) == 0) {
+          # Copy a renamed file to Raw/V#/.
+          file.rename(paste0(folder.in,files[i]),paste0(folder.out,"V",visitNumber,"/",paste(radarID,paste0("Network_Interview_V",visitNumber),paste0(intdate,".json"),sep = "_")))
+        } else {
+          file.remove(paste0(folder.in,files[i]))
+        }
+
+        # Increment counter.
         transFiles <- transFiles + 1
       } else {
         # If it's a stub, skip it and increment number skipped.

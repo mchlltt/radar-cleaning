@@ -11,10 +11,17 @@ suppressMessages(library(Hmisc))
 # For replace_number
 suppressMessages(library(qdap))
 
-## Settings ##
-con <- file("../configure_networkscripts.txt")
-source(con)
-close(con)
+# Read settings file.
+# It's not guaranteed whether the working directory is Scripts/ or Scripts/Process, so try both paths to settings.
+tryCatch({
+  con <- file("configure_networkscripts.txt")
+  source(con)
+}, error = function(e) {
+  con <- file("../configure_networkscripts.txt")
+  source(con)
+}, finally = {
+  close(con)
+})
 
 ## Set folder name shortcut. ##
 # If you want to test the script, change test.check.folder to TRUE in the settings file.
