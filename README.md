@@ -29,3 +29,13 @@ This file is the code for a bookmarklet pulls survey dates and participant IDs f
 - Refer to your copy of `REDCapIds.txt` and identify the latest included ID.
 - Copy from your console output beginning at the first new ID.
 - Paste into `REDCapIds.txt`.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details 
+
+## Authors
+Mich Elliott - [mchlltt](http://github.com/mchlltt)
+Patrick Janulis - [pfsj](http://github.com/pfsj)
+
+## Acknowledgements
+My time working on this project is funded by the NIH via Northwestern University's [Institute for Sexual and Gender Minority Health and Wellbeing](http://isgmh.northwestern.edu/). Visit the RADAR Project's [DokuWiki Codebook](http://codebook.netcanvas-r.com/doku.php?id=radar:start) if you are interested in the study collecting this data.
