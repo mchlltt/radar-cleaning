@@ -7,7 +7,7 @@
 ##### LIBRARIES & SET-UP #####
 ## Libraries ##
 # For import from xlsx.
-suppressMessages(library(xlsx))
+library(xlsx)
 # For substrings.
 library(stringr)
 # For concatenation.
@@ -20,7 +20,7 @@ library(rjson)
 tryCatch({
   con <- file("configure_networkscripts.txt")
   source(con)
-}, error = function(e) {
+}, error = function() {
   con <- file("../configure_networkscripts.txt")
   source(con)
 }, finally = {

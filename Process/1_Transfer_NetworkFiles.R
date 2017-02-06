@@ -15,7 +15,7 @@ library(stringr)
 tryCatch({
   con <- file("configure_networkscripts.txt")
   source(con)
-}, error = function(e) {
+}, error = function() {
   con <- file("../configure_networkscripts.txt")
   source(con)
 }, finally = {

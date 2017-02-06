@@ -3,20 +3,15 @@
 ## redCapIds.csv is maintained by hand. The script compiles networkIds. ##
 
 ##### LIBRARIES & SET-UP #####
-## Libraries ##
 # For substrings.
-suppressMessages(library(stringr))
-# For %nin%
-suppressMessages(library(Hmisc))
-# For replace_number
-suppressMessages(library(qdap))
+library(stringr)
 
 # Read settings file.
 # It's not guaranteed whether the working directory is Scripts/ or Scripts/Process, so try both paths to settings.
 tryCatch({
   con <- file("configure_networkscripts.txt")
   source(con)
-}, error = function(e) {
+}, error = function() {
   con <- file("../configure_networkscripts.txt")
   source(con)
 }, finally = {
@@ -62,7 +57,7 @@ files <- files[order(str_sub(files$networkId,5,6)),]
 # Sort by date.
 networkIds <- files[order(files$date),1:2]
 # Remove any files that are indicated as to-be-skipped.
-networkIds <- networkIds[(networkIds$networkId %nin% networkSkipIds),]
+networkIds <- networkIds[!(networkIds$networkId %in% networkSkipIds),]
 # Note duplicates.
 networkIdDuplicates <- networkIds[which(duplicated(networkIds$networkId) | duplicated(networkIds$networkId, fromLast = TRUE)),]
 
@@ -78,7 +73,7 @@ if (test.check.redCap == TRUE) {
 ## Load redCapIds.csv.
 redCapIds <- read.csv(redCapIdPath,stringsAsFactors = FALSE,header = TRUE)
 # Remove files that are known to be missing.
-redCapIds <- redCapIds[(redCapIds$redCapId %nin% redCapSkipIds),]
+redCapIds <- redCapIds[!(redCapIds$redCapId %in% redCapSkipIds),]
 # Note duplicates.
 redCapIdDuplicates <- redCapIds[which(duplicated(redCapIds$redCapId) | duplicated(redCapIds$redCapId, fromLast = TRUE)),]
 
