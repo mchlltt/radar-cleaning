@@ -3,6 +3,7 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 
 ## Prerequisites
 - R
+- Neo4j (select scripts)
 
 ## Getting started
 - Clone this repository to your machine by running `git clone <repo-url>`.
