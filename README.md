@@ -12,12 +12,13 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 - If you want to run all three of the core cleaning scripts, run `Process_NetworkFiles.R`.
 - If you want to run any of the scripts individually, you can find them in the `Process/` directory.
 
-## Regarding `corrections.xlsx`
-- A dummy file showing the current headers used in this file is included. However, a project is currently underway to move away from tracking corrections in spreadsheet format, so this is included mostly as context for `2_Clean_NetworkFiles.R`.
+## Notes
+#### `corrections.xlsx`
+- An spreadsheet with zero rows showing the current headers used in this file is included. However, a project is currently underway to move away from tracking corrections in spreadsheet format, so this is included mostly as context for `2_Clean_NetworkFiles.R`.
 - A sample `corrections.json` file will be included once this transition is completed.
 - You can view the project to change how corrections are tracked at https://github.com/mchlltt/inquirer-corrections.
 
-## Regarding `REDCapIDPull.js`
+#### `REDCapIDPull.js`
 This file is the code for a bookmarklet pulls survey dates and participant IDs from REDCap ([Research Electronic Data Capture](https://catalyst.harvard.edu/services/redcap/)). If you have access to RADAR Survey data in REDCap, you can use this script by taking the following steps.
 - Create a new bookmark in your browser.
 - Set the title of the bookmark to 'REDCap ID Pull' or something else that you will understand.
@@ -34,8 +35,8 @@ This file is the code for a bookmarklet pulls survey dates and participant IDs f
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details 
 
 ## Authors
-Mich Elliott - [mchlltt](http://github.com/mchlltt)
-Patrick Janulis - [pfsj](http://github.com/pfsj)
+- Mich Elliott - [mchlltt](http://github.com/mchlltt)
+- Patrick Janulis - [pfsj](http://github.com/pfsj)
 
 ## Acknowledgements
 My time working on this project is funded by the NIH via Northwestern University's [Institute for Sexual and Gender Minority Health and Wellbeing](http://isgmh.northwestern.edu/). Visit the RADAR Project's [DokuWiki Codebook](http://codebook.netcanvas-r.com/doku.php?id=radar:start) if you are interested in the study collecting this data.
