@@ -3,12 +3,11 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 
 ## Prerequisites
 - R
-- RStudio IDE (recommended)
 
 ## Getting started
-- Clone this repository to your machine.
+- Clone this repository to your machine by running `git clone <repo-url>`.
 - Replace the placeholder folders with actual data and paths. Synthetic data/examples yet to come.
-- If you are involved in the RADAR Project, please request `configure_networkscripts.txt`, `redcapids.csv`, and `corrections.xlsx` from Pat Janulis.
+- If you are involved in the RADAR Project, please request `configure_networkscripts.txt`, `REDCapIDs.txt`, and `corrections.xlsx` from Pat Janulis.
 - If you want to run all three of the core cleaning scripts, run `Process_NetworkFiles.R`.
 - If you want to run any of the scripts individually, you can find them in the `Process/` directory.
 
