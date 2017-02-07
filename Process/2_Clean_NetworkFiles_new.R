@@ -130,15 +130,15 @@ if (length(files) == 0) {
     skip <- FALSE
 
     ## If the filename is a key of corrections, it needs to be corrected.
-    # List indexing in R is a mess, but this means that the filename is a key in `corrections`
-    # Literally: There exists a value for this key in `corrections`.`
+    # List indexing in R is a mess, but this means that the filename is a key in `corrections`.
+    # Literally: There exists a value for this key in `corrections`.
     if (!is.null(corrections[files[i]][[1]])) {
       # Grab the list of corrections.
       this.corrections <- corrections[files[i]][[1]]
 
       # Iterate through the list, switching based on the correction type.
       for (j in 1:length(this.corrections)) {
-        # Pull corrections and ID. Either or both may be NULL.
+        # Pull corrections and ID. Either or both may be NULL, depending on the correction type.
         this.data <- this.corrections[[j]]$correctData
         this.vars <- names(this.corrections[[j]]$correctData)
         this.id <- this.corrections[[j]]$id
@@ -159,18 +159,26 @@ if (length(files) == 0) {
             # Grab the index for this node id.
             index <- findIndex(json$nodes, this.id)
 
-            # Set each variable.
+            # Set each variable. If a deletion is indicated, remove the variable.
             for (k in 1:length(this.data)) {
-              json$nodes[[index]][this.vars[k]] <- this.data[k]
+              if (this.data[k] == '[Delete]') {
+                json$nodes[[index]][this.vars[k]] <- NULL
+              } else {
+                json$nodes[[index]][this.vars[k]] <- this.data[k]
+              }
             }
           },
           'Edge update' = {
             # Grab the  index for this edge id.
             index <- findIndex(json$edges, this.id)
 
-            # Set each variable.
+            # Set each variable. If a deletion is indicated, remove the variable.
             for (k in 1:length(this.data)) {
-              json$edges[[index]][this.vars[k]] <- this.data[k]
+              if (this.data[k] == '[Delete]') {
+                json$edges[[index]][this.vars[k]] <- NULL
+              } else {
+                json$edges[[index]][this.vars[k]] <- this.data[k]
+              }
             }
           },
           'Node deletion' = {
