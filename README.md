@@ -31,6 +31,8 @@ This file is the code for a bookmarklet pulls survey dates and participant IDs f
 - Copy from your console output beginning at the first new ID.
 - Paste into `REDCapIds.txt`.
 
+Note: If you want to run the script without making a bookmark, you can paste the contents of `REDCapIDPull.js` into your browser's console and run it from there. The majority of the instructions above still apply.
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details 
 
