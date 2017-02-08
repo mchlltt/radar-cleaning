@@ -62,9 +62,6 @@ if (test.clean.corrections) {
   correctionsPath <- correctionsPath.new
 }
 
-correctionsPath <-
-  'C:/users/me4219/inquirer-corrections/corrections.json'
-
 # Read the corrections.json file.
 corrections <- rjson::fromJSON(file = correctionsPath)
 
@@ -117,6 +114,7 @@ numCopyFilesV1 <- 0
 numCopyFilesV2 <- 0
 numCopyFilesV3 <- 0
 numCopyFilesV4 <- 0
+numCopyFilesV5 <- 0
 numSkipped <- 0
 
 if (length(files) == 0) {
@@ -330,6 +328,8 @@ if (length(files) == 0) {
         numCopyFilesV3 <- numCopyFilesV3 + 1
       } else if (visitnumber == 4) {
         numCopyFilesV4 <- numCopyFilesV4 + 1
+      } else if (visitnumber == 5) {
+        numCopyFilesV5 <- numCopyFilesV5 + 1
       }
     }
   }
@@ -340,6 +340,7 @@ if (length(files) == 0) {
   writeLines(paste(' ', numCopyFilesV2, 'V2s Processed.'))
   writeLines(paste(' ', numCopyFilesV3, 'V3s Processed.'))
   writeLines(paste(' ', numCopyFilesV4, 'V4s Processed.'))
+  writeLines(paste(' ', numCopyFilesV5, 'V5s Processed.'))
   if (numSkipped > 0) {
     writeLines(paste(' ', numSkipped, 'file(s) skipped.'))
   }
