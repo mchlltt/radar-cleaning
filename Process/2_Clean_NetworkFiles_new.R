@@ -10,8 +10,9 @@
 library(stringr)
 # For reading JSON files.
 library(rjson)
-# For writing JSON files. Allows pretty-printing.
-library(jsonlite)
+# For writing JSON files with pretty-printing.
+# warn.conflicts = FALSE avoids warnings about json/jsonlite overlapping function names.
+library(jsonlite, warn.conflicts = FALSE)
 
 ## Function for finding the index of an ego or node.
 findIndex <- function(my.list, my.id) {
@@ -25,18 +26,13 @@ findIndex <- function(my.list, my.id) {
   }
 }
 
-# Read settings file.
-# It's not guaranteed whether the working directory is Scripts or Scripts/Process, so try both paths to settings.
+# Read settings file. Try multiple paths to the settings file.
 tryCatch({
-  con <- file("configure_networkscripts.txt")
-  source(con)
+  source("configure_networkscripts.txt")
 }, error = function(e) {
-  con <- file("../configure_networkscripts.txt")
-  source(con)
-}, warning = function(w) {
-  # Ignore warning, because it is redundant.
-}, finally = {
-  close(con)
+  return(source("../configure_networkscripts.txt"))
+}, warning = function(e) {
+  return(source("../configure_networkscripts.txt"))
 })
 
 ## Set folder name shortcuts. ##

@@ -3,29 +3,21 @@
 # configure_miscscripts.txt, located in this folder.
 # You can also always run any of these scripts individually by opening the script file.
 
-# Read settings file.
-# It's not guaranteed whether the working directory is Scripts or Scripts/Misc, so try both paths to settings.
-# Based on which path works, you know which directory to search with `list.files`
-tryCatch({
-  # Source settings file.
+# Run list.files on the Process folder.
+filenames <- list.files(path = 'Misc/', full.names = TRUE, pattern = '*.R')
+
+# If you got results, you know you are in the root folder and can run the configuration script from there.
+if (length(filenames) > 0) {
   con <- file("configure_miscscripts.txt")
   source(con)
-
-  # List R script files in the misc scripts folder.
-  filenames = list.files(path = "Misc/",pattern = "*.R",full.names = TRUE)
-}, error = function(e) {
-  # Source settings file.
+  close(con)
+# Otherwise, you must be one level down, so run these operations from that position in the file tree.
+} else {
+  filenames = list.files('../Misc/', full.names = TRUE, pattern = '*.R')
   con <- file("../configure_miscscripts.txt")
   source(con)
-
-  # List R script files in the misc scripts folder.
-  filenames = list.files(path = "../Misc/",pattern = "*.R",full.names = TRUE)
-}, warning = function(w) {
-  # Ignore warning, because it is redundant.
-}, finally = {
-  # Close the connection.
   close(con)
-})
+}
 
 # Select appropriate scripts. Use grep in case anything is appended to the end of a filename.
 altGen <- grep("Alter_Generation_Stats", filenames, value = TRUE)

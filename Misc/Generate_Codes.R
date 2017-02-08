@@ -5,21 +5,18 @@
 ## It replaces the previous jsonData.7z in that folder.
 
 ## Libraries ##
+# For reading JSON files.
 library(rjson)
+# For substrings.
 library(stringr)
 
-# Read settings file.
-# It's not guaranteed whether the working directory is Scripts or Scripts/Misc, so try both paths to settings.
+# Read settings file. Try multiple paths to the settings file.
 tryCatch({
-  con <- file("configure_miscscripts.txt")
-  source(con)
+  source("configure_miscscripts.txt")
 }, error = function(e) {
-  con <- file("../configure_miscscripts.txt")
-  source(con)
-}, warning = function(w) {
-  # Ignore warning, because it is redundant.
-}, finally = {
-  close(con)
+  return(source("../configure_miscscripts.txt"))
+}, warning = function(e) {
+  return(source("../configure_miscscripts.txt"))
 })
 
 ##### SELECT FILES TO READ #####

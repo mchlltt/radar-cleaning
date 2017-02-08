@@ -10,18 +10,13 @@ library(rjson)
 # For substrings.
 library(stringr)
 
-# Read settings file.
-# It's not guaranteed whether the working directory is Scripts or Scripts/Process, so try both paths to settings.
+# Read settings file. Try multiple paths to the settings file.
 tryCatch({
-  con <- file("configure_networkscripts.txt")
-  source(con)
+  source("configure_networkscripts.txt")
 }, error = function(e) {
-  con <- file("../configure_networkscripts.txt")
-  source(con)
-}, warning = function(w) {
-  # Ignore warning, because it is redundant.
-}, finally = {
-  close(con)
+  return(source("../configure_networkscripts.txt"))
+}, warning = function(e) {
+  return(source("../configure_networkscripts.txt"))
 })
 
 ## Set folder name shortcuts. ##

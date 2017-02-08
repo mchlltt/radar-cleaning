@@ -3,29 +3,21 @@
 # configure_networkscripts.txt, located in this folder.
 # You can also always run any of these scripts individually by opening the script file.
 
-# Read settings file.
-# It's not guaranteed whether the working directory is Scripts or Scripts/Process, so try both paths to settings.
-# Based on which path works, you know which directory to search with `list.files`
-tryCatch({
-  # Source settings file.
+# Run list.files on the Process folder.
+filenames <- list.files(path = 'Process/', full.names = TRUE, pattern = '*.R')
+
+# If you got results, you know you are in the root folder and can run the configuration script from there.
+if (length(filenames) > 0) {
   con <- file("configure_networkscripts.txt")
   source(con)
-
-  # List R script files in the process scripts folder.
-  filenames = list.files(path = "Process/",pattern = "*.R",full.names = TRUE)
-}, error = function(e) {
-  # Source settings file.
+  close(con)
+# Otherwise, you must be one level down, so run these operations from that position in the file tree.
+} else {
+  filenames = list.files('../Process/', full.names = TRUE, pattern = '*.R')
   con <- file("../configure_networkscripts.txt")
   source(con)
-
-  # List R script files in the process scripts folder.
-  filenames = list.files(path = "../Process/",pattern = "*.R",full.names = TRUE)
-}, warning = function(w) {
-  # Ignore warning, because it is redundant.
-}, finally = {
-  # Close the connection.
   close(con)
-})
+}
 
 # Select appropriate scripts. Use grep to allow for changing filename dates.
 trans <- grep("Transfer_Network", filenames, value = TRUE)
