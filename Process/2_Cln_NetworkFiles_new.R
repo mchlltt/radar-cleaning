@@ -176,11 +176,13 @@ if (length(files) == 0) {
           'Node deletion' = {
             # Set `toDelete`` to an empty vector.
             toDelete <- c()
+            # Get the IDs of nodes to delete
+            ids <- this.data$ids
 
-            # We don't use the index function because there may be multiple values.
+            # We don't use the index function because it doesn't work when comparing to a list of ids.
             for (k in 1:length(json$nodes)) {
-              # Whenever a node's id is in `this.id`, add its index to `toDelete`.
-              if (json$nodes[[k]]$id %in% this.id) {
+              # Whenever a node's id is in `ids`, add its index to `toDelete`.
+              if (json$nodes[[k]]$id %in% ids) {
                 toDelete <- c(toDelete, k)
               }
             }
@@ -191,11 +193,13 @@ if (length(files) == 0) {
           'Edge deletion' = {
             # Set `toDelete` to an empty vector.
             toDelete <- c()
+            # Get the IDs of edges to delete.
+            ids <- this.data$ids
 
-            # We don't use the index function because there may be multiple values.
+            # We don't use the index function because it doesn't work when comparing to a list of ids.
             for (k in 1:length(json$edges)) {
-              # Whenever an edge's id is in `this.id`, add its index to `toDelete`
-              if (json$edges[[k]]$id %in% this.id) {
+              # Whenever an edge's id is in `ids`, add its index to `toDelete`
+              if (json$edges[[k]]$id %in% ids) {
                 toDelete <- c(toDelete, k)
               }
             }
@@ -236,7 +240,7 @@ if (length(files) == 0) {
             start <- as.integer(this.data$start)
             offset <- as.integer(this.data$offset)
 
-            # Walk through nodes and edges, adjusting to/from values (edges) and ids (nodes.
+            # Walk through nodes and edges, adjusting to/from values (edges) and ids (nodes).
             for (k in 1:length(json$edges)) {
               if (json$edges[[k]]$to >= start) {
                 json$edges[[k]]$to <- json$edges[[k]]$to + offset
