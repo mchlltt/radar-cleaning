@@ -14,6 +14,7 @@ Misc/Unedited Checks
 Misc/Validation Codes
 Misc/Issue 28
 Misc/radar-weeklyUpdate
+Pull_Ego_Tracts.R
 
 # Has its own repo
 weeklyUpdate.R
@@ -54,3 +55,6 @@ vignettes/*.pdf
 
 # Other Windows files
 *.db
+
+# WebStorm project files
+.idea

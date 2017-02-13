@@ -114,7 +114,7 @@ toCheck <- subset(toCheck[(toCheck$radarID > 0),])
 toCheck <- subset(toCheck[!is.na(toCheck$radarID),])
 
 ## Remove interviews that we checked in a previous run of the script.
-toCheck <- subset(toCheck[!(toCheck$radarID %in% dupSkips),])
+toCheck <- subset(toCheck[!(toCheck$radarID %in% duplicateSkips),])
 
 # Now, with what we have left, inspect these files more closely.
 jsons.nodes <- c()
@@ -151,17 +151,19 @@ for (i in 2:length(toCheck$radarID)) {
 # Print only the rows where the RADAR ID was determined above to be a potential duplicate.
 printCheck <- toCheck[,c(3, 10)][toCheck$radarID %in% potentialIssues,]
 
-if (length(toCheck$radarID > 0)) {
-  writeLines("  The following files should be examined. Locate and open them by their filepaths.
-  Compare the files corresponding to the same visit number.
-  Determine whether one file is more complete than the other.
-  If one file is more complete than the other, find the file for this visit in the Raw/V*/ folder.
-  Ensure that the contents of this file are the same file as the more complete file in the Raw/V*/Unedited folder.
-  If the file in Raw/V*/ does not reflect the more complete data, copy the more complete file from Raw/V*/Unedited into Incoming.
-  Then, run the processing scripts with 'all' set to TRUE, to ensure that the new data will overwrite the old data in Analysis Ready.
+if (length(printCheck$radarID > 0)) {
+  writeLines("  The following files should be examined.
+  1. Locate and open them by their filepaths.
+  2. Compare the files corresponding to the same visit number.
+  3. Determine whether one file is more complete than the other.
+  4. If one file is more complete than the other, find the file for this visit in the Raw/V*/ folder.
+  5. Ensure that the contents of this file are the same file as the more complete file in the Raw/V*/Unedited folder.
+  6. If the file in Raw/V*/ does not reflect the more complete data, copy the more complete file from Raw/V*/Unedited into Incoming.
+  7. Then, run the processing scripts with 'all' set to TRUE, to ensure that the new data will overwrite the old data in Analysis Ready.
 
-  Regardless of whether there is a legitimate issue or just a false positive, add the RADAR ID to 'dupSkips'
-  in the Misc Scripts settings file so that it will be ignored in the future.")
+  8. Regardless of whether there is a legitimate issue or just a false positive,
+  add the RADAR ID to 'duplicateSkips' in the Misc Scripts settings file so that
+  it will be ignored in the future.")
   print(printCheck)
 } else {
   writeLines("There are no potential issues that need to be inspected.")

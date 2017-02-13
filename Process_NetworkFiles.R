@@ -14,9 +14,13 @@ if (length(filenames) > 0) {
 # Otherwise, you must be one level down, so run these operations from that position in the file tree.
 } else {
   filenames = list.files('../Process/', full.names = TRUE, pattern = '*.R')
-  con <- file("../configure_networkscripts.txt")
-  source(con)
-  close(con)
+  if (length(filenames) > 0) {
+    con <- file("../configure_networkscripts.txt")
+    source(con)
+    close(con)
+  } else {
+    stop(paste0('Your working directory is ', getwd(), '. Please set it to the directory of this script.'))
+  }
 }
 
 # Select appropriate scripts. Use grep to allow for changing filename dates.
