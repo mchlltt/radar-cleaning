@@ -1,5 +1,33 @@
-### This script identifies errors that result from Issue #28 as described on the RADAR Protocol GitHub repository.
-### To be run at the beginning of each month until the issue is resolved.
+## This script identifies errors that result from Issue #28 as described
+## on the RADAR Protocol GitHub repository. The text of the initial error report is pasted below:
+
+# I've discovered that for all longitudinal surveys, previously elicited alters
+# that are pulled over on the "drugs with" or "sex with" name generator do not
+# automatically have a drug or sex edge created for them, and so they are not
+# automatically highlighted on the canvas select screens for drug or sex partners.
+# (To clarify, the edge is correctly created for newly created alters; only previously
+# elicited alters have this issue.) We are worried that, especially for those with large
+# networks, they will be more likely to forget to tap everyone and so we will not get
+# to collect any of the sex edge or drug edge attributes.
+# Pat is looking into the actual prevalence of this issue, and plans to create an
+# attributeless drug or sex edge for any alters that were created on "drugs with" or
+# "sex with" but did not end up having a drug or sex edge created because the participant
+# failed to tap them on the appropriate screen.
+
+## Because this issue was not fixed, it is necessary to check regularly whether there are any
+## missing sex or drug edges. However, it is not quite as simple as creating every edge where
+## the name generator was "sex with" or "drugs with" where the edge does not exist. This is because
+## participants will occasionally, for instance, name an alter on the "sex with" name generator,
+## then realize later on that they did not actually have sex with that alter in the past 6 months
+## and remove the edge. Thus, for each case where the name generator implies that an edge should
+## exist but it does not exist, this script will output identifying information about the situation.
+## The person running the script must then manually inspect the corresponding JSON file. Usually,
+## the best way to proceed is by looking through the `log` portion of the JSON file to see
+## whether an edge was created and then deleted. If an edge is in fact missing, add a note
+## to the Data Error Log and create a correction in corrections.json to add that edge.
+## Regardless of whether there was an actual issue, add the interview ID to 'skipfiles28' in the
+## Misc Scripts settings file.
+
 
 ## Libraries ##
 # For substrings

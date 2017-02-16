@@ -1,34 +1,33 @@
-readme <- ("
-PURPOSE: This script addressed a complicated issue. A potential data issue can arise
-when two files are downloaded for the same participant ID in the same day. Most often, this happens
-when the file is downloaded, then the program is closed and reopened and downloaded again. In this case,
-it doesn't matter which of these two files ends up in the analysis set. Rarely, however, data may be
-saved with a substantial portion of the interview incomplete and then saved again once the interview is complete.
-If both of these saves have the same RADAR ID and the same date, it is not guaranteed that the more complete file will
-end up in the Raw/V*/ folder. This is because, when the files are transferred from Incoming to Raw, both files will have the same
-filename, and one will overwrite the other. However, both files are still present in Raw/Unedited, because
-they are guaranteed to have different filenames by merit of having a different download time. Thus, this script
-identifies cases where there are two files for the same RADAR ID on the same date in the Raw/Unedited/ folder.
-It then compares the length of the log in each file to determine whether there may be a significant difference between the two files.
-It then takes the smaller set of potential issues and compares edges and nodes.
-If there are two files for the same ID on the same day with differences in their edges and/or nodes, the script will print the RADAR ID
-and file path. For each set, the first task is to open both files in Raw/Unedited/ and determine whether there is actually
-a significant difference between the two files.
+# PURPOSE: This script addressed a complicated issue. A potential data issue can arise
+# when two files are downloaded for the same participant ID in the same day. Most often, this happens
+# when the file is downloaded, then the program is closed and reopened and downloaded again. In this case,
+# it doesn't matter which of these two files ends up in the analysis set. Rarely, however, data may be
+# saved with a substantial portion of the interview incomplete and then saved again once the interview is complete.
+# If both of these saves have the same RADAR ID and the same date, it is not guaranteed that the more complete file will
+# end up in the Raw/V*/ folder. This is because, when the files are transferred from Incoming to Raw, both files will have the same
+# filename, and one will overwrite the other. However, both files are still present in Raw/Unedited, because
+# they are guaranteed to have different filenames by merit of having a different download time. Thus, this script
+# identifies cases where there are two files for the same RADAR ID on the same date in the Raw/Unedited/ folder.
+# It then compares the length of the log in each file to determine whether there may be a significant difference between the two files.
+# It then takes the smaller set of potential issues and compares edges and nodes.
+# If there are two files for the same ID on the same day with differences in their edges and/or nodes, the script will print the RADAR ID
+# and file path. For each set, the first task is to open both files in Raw/Unedited/ and determine whether there is actually
+# a significant difference between the two files.
+#
+# If there *is* a significant difference, which is a fairly rare occurance,
+# the user must check the file corresponding to this RADAR ID and date in the Raw/ folder. If the file in the Raw/ folder is already
+# the more up-to-date file, no corrections need to be made. However, if the less up-to-date file is in Raw/, the user should
+# copy the more up-to-date file from Raw/Unedited/ and paste it to the Incoming/ folder. Run the Transfer_NetworkFiles script and
+# then run the Clean_NetworkFiles script with 'all' set to TRUE, to make sure that this file is the one cleaned and output in Analysis Ready/.
+# Because this script should be run monthly, it should not be necessary to make any updates to validation codes or jsonData.7z.
+# If run less frequently, there is a risk of having an out-of-date validation code in REDCap and file in jsonData.7z. However,
+# when run monthly, any issues should be addressed several months before a participant's follow-up visit, so those corrections
+# should be made automatically when the monthly scripts are next run.
 
-If there *is* a significant difference, which is a fairly rare occurance,
-the user must check the file corresponding to this RADAR ID and date in the Raw/ folder. If the file in the Raw/ folder is already
-the more up-to-date file, no corrections need to be made. However, if the less up-to-date file is in Raw/, the user should
-copy the more up-to-date file from Raw/Unedited/ and paste it to the Incoming/ folder. Run the Transfer_NetworkFiles script and
-then run the Clean_NetworkFiles script with 'all' set to TRUE, to make sure that this file is the one cleaned and output in Analysis Ready/.
-Because this script should be run monthly, it should not be necessary to make any updates to validation codes or jsonData.7z.
-If run less frequently, there is a risk of having an out-of-date validation code in REDCap and file in jsonData.7z. However,
-when run monthly, any issues should be addressed several months before a participant's follow-up visit, so those corrections
-should be made automatically when the monthly scripts are next run.
-")
 
 ## Libraries ##
 # For comparing files and identifying duplicates.
-library(RecordLinkage)
+suppressMessages(library(RecordLinkage))
 # For substrings.
 library(stringr)
 # For reading JSON files.

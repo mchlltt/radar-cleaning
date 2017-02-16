@@ -92,7 +92,7 @@ for (i in 1:length(fileList)) {
   countTreatment <- 0
 
   # Read JSON file and get radarid and visitnumber from it.
-  json <- fromJSON(file = fileList[i])
+  json <- rjson::fromJSON(file = fileList[i])
   radarid <- as.character(json$nodes[[1]]$radar_id)
   visitnumber <- json$nodes[[1]]$visit_number
 

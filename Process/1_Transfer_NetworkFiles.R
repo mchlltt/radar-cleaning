@@ -55,7 +55,7 @@ if (numFiles > 0) {
     # Make sure that the file size > 0 kb.
     if (file.info(paste0(folder.in,files[i]))[1,1] > 0) {
       # Read the file.
-      json <- fromJSON(file = paste0(folder.in,files[i]))
+      json <- rjson::fromJSON(file = paste0(folder.in,files[i]))
       # Make sure the file isn't a stub.
       if (length(json$nodes) > 0 & length(json$log) >= 75) {
         # Get RADAR ID and interview date from JSON.

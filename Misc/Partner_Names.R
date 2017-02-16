@@ -151,13 +151,11 @@ for (i in 1:length(files)) {
 }
 
 # Turn these lists of lists into a big dataframe.
-nameData <- ldply(df,data.frame)[,c("alterid","visitNumber","fname_t0","lname_t0","nname_t0","elicited_previously")]
+nameData <- ldply(df,data.frame)[,c("alterid","visitNumber","fname_t0","lname_t0","nname_t0")]
 nameData$fname_t0 <- as.character(nameData$fname_t0)
 nameData$lname_t0 <- as.character(nameData$lname_t0)
 nameData$nname_t0 <- as.character(nameData$nname_t0)
-nameData$elicited_previously[is.na(nameData$elicited_previously)] <- FALSE
 nameData$alter.alter_id <- paste0(nameData$alterid,'0',nameData$visitNumber)
-nameData$alterid <- NULL
 nameData$visitNumber <- NULL
 
 ## MATCH ALTER IDS
@@ -166,6 +164,15 @@ writeLines("  Combining Neo4j and JSON file data.")
 
 # Find the rows in nameData that correspond to the same alter ID, then adopt those name values
 allPrtJoin <- merge.data.frame(allPrt,nameData,by = "alter.alter_id")
+
+# Create a list of the alter IDs that are included more than once.
+repeatPartners <- allPrtJoin[which(duplicated(allPrtJoin$alterid) | duplicated(allPrtJoin$alterid, fromLast = TRUE)),'alterid']
+
+# Default value of FALSE.
+allPrtJoin$repeated <- FALSE
+
+# If the alter ID is in the list of repeat partners, override the default to TRUE.
+allPrtJoin$repeated[allPrtJoin$alterid %in% repeatPartners] <- TRUE
 
 ## EXPORT
 allPrtJoin <- allPrtJoin[order(allPrtJoin$alter.alter_id),]
