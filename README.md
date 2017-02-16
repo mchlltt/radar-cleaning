@@ -8,14 +8,13 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 ## Getting started
 - Clone this repository to your machine by running `git clone <repo-url>`.
 - Replace the placeholder folders with actual data and paths. Synthetic data/examples yet to come.
-- If you are involved in the RADAR Project, please request `configure_networkscripts.txt`, `REDCapIDs.txt`, and `corrections.xlsx` from Pat Janulis.
+- If you are involved in the RADAR Project, please request `configure_networkscripts.txt`, `REDCapIDs.txt`, and `corrections.json` from Pat Janulis.
 - If you want to run all three of the core cleaning scripts, run `Process_NetworkFiles.R`.
 - If you want to run any of the scripts individually, you can find them in the `Process/` directory.
 
 ## Notes
-#### `corrections.xlsx`
-- An spreadsheet with zero rows showing the current headers used in this file is included. However, a project is currently underway to move away from tracking corrections in spreadsheet format, so this is included mostly as context for `2_Clean_NetworkFiles.R`.
-- A sample `corrections.json` file will be included once this transition is completed.
+#### `corrections.json`
+- A shift toward storing corrections in JSON format is almost complete. A sample `corrections.json` file will be included shortly.
 - You can view the project to change how corrections are tracked at https://github.com/mchlltt/inquirer-corrections.
 
 #### `REDCapIDPull.js`
