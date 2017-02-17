@@ -1,7 +1,7 @@
-javascript:function getIDs() {
+javascript:function getIDs(numberRecords) {
     console.log('');
     var options = document.getElementById('record_select3').childNodes;
-    var firstRecord = options.length - 200;
+    var firstRecord = options.length - numberRecords;
     var idList = [];
     for (var i = firstRecord; i < options.length - 1; i++) {
         var text = options[i].innerText || options[i].textContent;
@@ -11,7 +11,10 @@ javascript:function getIDs() {
         var visit = words[5].split('')[1];
         idList.push(id + 0 + visit + ',' + date);
     }
+
     console.log(idList.join('\r\n'));
 }
 
-getIDs();
+var recordCount = 200;
+
+getIDs(recordCount);
