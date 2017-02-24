@@ -10,7 +10,7 @@
 5. Preferably, REDCap RADAR Participant Tracking and/or RADAR Google Calendar access. (RADAR Data Manager and/or Project Director)
 
 ### Browser prep
-1. Bookmark the sites included in `bookmarks.md` (not uploaded for privacy reasons).
+1. Bookmark the sites included in `bookmarks.md`.
 2. Create a bookmarklet for pulling REDCap IDs by following the directions in the README.md.
 
 ### Node prep
