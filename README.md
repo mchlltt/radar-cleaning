@@ -7,15 +7,17 @@ R cleaning scripts used for network data from Northwestern University's RADAR Pr
 
 ## Getting started
 - Clone this repository to your machine by running `git clone <repo-url>`.
-- Replace the placeholder folders with actual data and paths. Synthetic data/examples yet to come.
-- If you are involved in the RADAR Project, please request `configure_networkscripts.txt`, `REDCapIDs.txt`, and `corrections.json` from Pat Janulis.
+- If you are involved in the RADAR Project, please request access to the network data, which will give you access to `configure_networkscripts.txt`, `REDCapIDs.txt`, and `corrections.json`.
+
 - If you want to run all three of the core cleaning scripts, run `Process_NetworkFiles.R`.
-- If you want to run any of the scripts individually, you can find them in the `Process/` directory.
+- If you want to run an individual processing script, you can find them in the `Process/` directory.
+
+- If you want to run any number of the miscellaneous scripts (data pulls, reports, etc.), you can do this by running `Misc_NetworkScripts.R`.
+- If you want to run an individual 'miscellaneous' script, you can find them in the `Misc/` directory.
 
 ## Notes
-#### `corrections.json`
-- A shift toward storing corrections in JSON format is almost complete. A sample `corrections.json` file will be included shortly.
-- You can view the project to change how corrections are tracked at https://github.com/mchlltt/inquirer-corrections.
+#### `Clean_NetworkFiles.R`
+Data corrections are stored in JSON format. You can review the command line interface used to generate this JSON file at https://github.com/mchlltt/inquirer-corrections.
 
 #### `REDCapIDPull.js`
 This file is the code for a bookmarklet pulls survey dates and participant IDs from REDCap ([Research Electronic Data Capture](https://catalyst.harvard.edu/services/redcap/)). If you have access to RADAR Survey data in REDCap, you can use this script by taking the following steps.
