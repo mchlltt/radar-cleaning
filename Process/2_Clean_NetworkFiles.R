@@ -318,7 +318,7 @@ if (length(files) == 0) {
 
     ## Write the new file to Analysis Ready. ##
     jsonExport <-
-      jsonlite::toJSON(json, pretty = 2, auto_unbox = TRUE)
+      jsonlite::toJSON(json, pretty = 2, auto_unbox = TRUE, null = 'null', na = 'null')
     # Remove slashes from date for use in file name.
     intdate <- gsub('/', '', intdate)
 

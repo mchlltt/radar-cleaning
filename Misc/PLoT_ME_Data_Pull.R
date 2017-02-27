@@ -274,7 +274,8 @@ allData <- allData[order(allData$id), ]
 allData <- allData[order(allData$radarid), ]
 
 # Trim white space from both sides of all venue/provider/app names.
-venueData$venue_name_t0 <- trimws(venueData$venue_name_t0)
+# iconv fixes encoding issue with the word 'café'
+venueData$venue_name_t0 <- trimws(gsub('é', 'e', iconv(venueData$venue_name_t0)))
 appData$app_name_t0 <- trimws(appData$app_name_t0)
 serviceData$name <- trimws(serviceData$name)
 
