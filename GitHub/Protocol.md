@@ -61,7 +61,7 @@
 2. Open the Neo4j desktop client and connect to the database.
 3. Open a command prompt.
 4. Change your working directory to the `radar-database` folder.
-5. Run `python databasebuild.py`. Your alias for python may vary, so try `py` or `py3` if `python` doesn't work.
+5. Run `python databasebuild.py`. Your alias for python may vary, so try `py` or `py3` if `python` does not work.
 6. Enter the database password. Unless you have a reason or direction to do so, do not delete the database.
 7. Wait for this script to run. It can take several minutes.
 8. When it finishes running, verify the number of interviews added and ensure that it sounds like an accurate number of interviews to have been run since your last built the database.
@@ -75,7 +75,7 @@
 
 ## Monthly tasks
 
-1. Open `configure_miscscripts.txt` and set 
+1. Open `configure_miscscripts.R` and set 
 ```
 runAltGen <- TRUE
 runIssue28 <- TRUE
@@ -126,9 +126,19 @@ With most network data errors, it is relatively clear what correction needs to b
 
 To put it more succinctly, if there is an situation wherein the same radar ID + alter ID combination may refer to two different people, you need to keep the two sets from overlapping by making one set's IDs start after the other's. In these cases, you will need to run the script for adding corrections (see steps 4-7 above), select 'renumber nodes', and input 1) the first node ID that should have its ID increased (in most cases, this is `1`),  and 2) how much each node ID should be increased by. This should be how many node IDs are already used up in previous interviews. If the ego already had 20 alters with IDs 1-20, the next alter should start at 21, so the 'offset' should be `20`.
 
+### RADAR Interviewer Departure
+
+When an interviewer leaves the project, their name should be added to `formerInts` in `configure_miscscripts.R`. This will remove them from the output for `interviewerStats.xlsx`.
+
+### RADAR Interviewer Arrival
+
+When a new interviewer joins the project, their name/ID should be added to `intIDsR.xlsx` file in the `Alter Generation Stats` folder. This will add them to the output for `interviewerStats.xlsx`.
+
+Additionally, all new interviewers should receive network interview training as outlined in the Network Interviewer Guide.
+
 ### rsw888 Password Change
 
-The password on the RADAR NetID is changed regularly. When it is changed, a few things need to be done to ensure that the same password is used across the resouces that interviewers access. Making these updates in a timely manner is essential, as inconsistencies cause a large amount of stress and confusion for interviewers. 
+The password on the RADAR NetID is changed regularly. When it is changed, a few things need to be done to ensure that the same password is used across the resources that interviewers access. Making these updates in a timely manner is essential, as inconsistencies cause a large amount of stress and confusion for interviewers. 
 
 ##### jsonData.7z password
 
@@ -144,7 +154,7 @@ The password on the RADAR NetID is changed regularly. When it is changed, a few 
 2. These tablets are named "Rogue" and "Jubilee", which is what the COH team will know them as.
 3. One or both of these tablets will be at Center on Halsted. One of them may be downtown for study visits held downtown.
 4. Finding a time/opportunity to access these tablets is the most difficult part of this process.
-5. Once you have one of the tablets, log into it as `rsw888`.
+5. Once you have access to each tablet, log into it as `rsw888`.
 6. Open a Windows Explorer window.
 7. Find the `C:/` drive in the left-hand column of the window.
 8. Right-click the `C:/` drive label.

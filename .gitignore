@@ -22,6 +22,7 @@ weeklyUpdate.R
 
 # Other Windows files
 *.db
+*.ds_store
 
 # WebStorm project files
 .idea
