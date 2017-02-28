@@ -160,3 +160,14 @@ The password on the RADAR NetID is changed regularly. When it is changed, a few 
 8. Right-click the `C:/` drive label.
 9. Click `Change BitLocker Password` in the menu that opens.
 10. Change the password to the new `rsw888` password.
+
+### When a new visit begins
+
+Every 6 months, a new RADAR visit opens up, which currently requires a number of hard-coded values to be updated to include that visit number. A non-exhaustive list of scripts, etc., that will need to be updated to accommodate the new visit number are listed below.
+
+1. `2_Clean_Network_Files.R` - tracking files processed by visit number.
+2. `Partner_Names.R` - currently need to manually add the new visit every place that data is pulled or cleaned.
+3. `Unedited_Checks.R` - currently need to manually add new visit folders to be checked.
+4. `weeklyUpdate.R` - needs a very large amount of adjustment to prep for a new visit number. It's possible to just add the new visit references, but it would be best if the script were rewritten to be more extensible.
+5. `weeklyUpdate.xlsx` will output different data after these adjustments. `WeeklyNetCanvasUpdate.xlsx` needs to be updated to pull this data properly and to display it properly.
+6. `truepath.txt` (radar-database) needs to have the new visit's folder added.
