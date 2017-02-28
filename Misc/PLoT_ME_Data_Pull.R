@@ -15,11 +15,11 @@ library(xlsx)
 
 # Read settings file. Try multiple paths to the settings file.
 tryCatch({
-  source("configure_miscscripts.txt")
+  source("configure_miscscripts.R")
 }, error = function(e) {
-  return(source("../configure_miscscripts.txt"))
+  return(source("../configure_miscscripts.R"))
 }, warning = function(e) {
-  return(source("../configure_miscscripts.txt"))
+  return(source("../configure_miscscripts.R"))
 })
 
 ##### PULL FROM JSON FILES #####
@@ -274,8 +274,8 @@ allData <- allData[order(allData$id), ]
 allData <- allData[order(allData$radarid), ]
 
 # Trim white space from both sides of all venue/provider/app names.
-# iconv fixes encoding issue with the word 'café'
-venueData$venue_name_t0 <- trimws(gsub('é', 'e', iconv(venueData$venue_name_t0)))
+# iconv fixes encoding issue with the word 'cafÃ©'
+venueData$venue_name_t0 <- trimws(gsub('Ã©', 'e', iconv(venueData$venue_name_t0)))
 appData$app_name_t0 <- trimws(appData$app_name_t0)
 serviceData$name <- trimws(serviceData$name)
 

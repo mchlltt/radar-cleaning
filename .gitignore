@@ -1,17 +1,16 @@
 # Private files
 corrections.json
 REDCapIDs.txt
-configure_networkscripts.txt
-configure_miscscripts.txt
+configure_networkscripts.R
+configure_miscscripts.R
 Pull_Ego_Tracts.R
-GitHub/protocol.md
-GitHub/bookmarks.md
 *.jar
 Process/Obsolete/
 Misc/Alter Generation Stats/
 Misc/Partner Names/
 Misc/Validation Codes/
 Misc/radar-weeklyUpdate/
+PLoT_ME_Data_Pull_mac.R
 
 # Has its own repo
 weeklyUpdate.R

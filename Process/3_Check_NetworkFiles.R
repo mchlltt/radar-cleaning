@@ -8,11 +8,11 @@ library(stringr)
 
 ## Read settings file. Try multiple paths to the settings file.
 tryCatch({
-  source("configure_networkscripts.txt")
+  source("configure_networkscripts.R")
 }, error = function(e) {
-  return(source("../configure_networkscripts.txt"))
+  return(source("../configure_networkscripts.R"))
 }, warning = function(e) {
-  return(source("../configure_networkscripts.txt"))
+  return(source("../configure_networkscripts.R"))
 })
 
 ## Set folder name shortcut. ##

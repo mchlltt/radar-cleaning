@@ -12,11 +12,11 @@ library(stringr)
 
 # Read settings file. Try multiple paths to the settings file.
 tryCatch({
-  source("configure_miscscripts.txt")
+  source("configure_miscscripts.R")
 }, error = function(e) {
-  return(source("../configure_miscscripts.txt"))
+  return(source("../configure_miscscripts.R"))
 }, warning = function(e) {
-  return(source("../configure_miscscripts.txt"))
+  return(source("../configure_miscscripts.R"))
 })
 
 ##### SELECT FILES TO READ #####

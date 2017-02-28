@@ -8,14 +8,14 @@ filenames <- list.files(path = 'Process/', full.names = TRUE, pattern = '*.R')
 
 # If you got results, you know you are in the root folder and can run the configuration script from there.
 if (length(filenames) > 0) {
-  con <- file("configure_networkscripts.txt")
+  con <- file("configure_networkscripts.R")
   source(con)
   close(con)
 # Otherwise, you must be one level down, so run these operations from that position in the file tree.
 } else {
   filenames = list.files('../Process/', full.names = TRUE, pattern = '*.R')
   if (length(filenames) > 0) {
-    con <- file("../configure_networkscripts.txt")
+    con <- file("../configure_networkscripts.R")
     source(con)
     close(con)
   } else {
