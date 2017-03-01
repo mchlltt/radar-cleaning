@@ -102,6 +102,20 @@ runUneditedChecks <- TRUE
 
 ## Ad hoc tasks
 
+### Lost data recovery
+
+If a network interview file is missing and not easily found by the interviewer, there are a few steps that should be taken.
+
+1. Go to the location of the tablet where the interview was conducted.
+2. Check various folders on the tablet, e.g., `Downloads`, `Documents`, `netCanvas`, `Desktop`, etc.
+3. Move all JSON files from the tablet's recycling bin to the `Incoming` folder. It's not worth your time to sort through the files in the recycling bin and it won't hurt anything to put everything in Incoming. 
+4. Run the processing scripts with `daysBeforeToday` set longer ago than the interview in question.
+5. If the file is still missing, go to `C:/Users/rsw888.FSM/AppData/Roaming/netCanvas` on the tablet where the interview was run. `appData` is a hidden folder, so you should type this address directly into the URL bar.
+6. This folder will include encrypted versions of recent data. The file names are generated from a UNIX timestamp, so you will need to identify the correct file based on its timestamp. Determine which file is correct by verifying the time and date that the interview took place. It should be reasonably obvious from this fact which file is correct. Its modified date is most often something like half an hour after the interview start time.
+7. If you are uncertainly which file is correct, take the following actions on all of the potential files.
+8. Copy the file to the `Encrypted Files` folder. Rename it with the interview ID and the name of the interviewer.
+9. Make sure to note that the file is missing and awaiting decryption in the Data Error Log.
+
 ### Data corrections (general)
 
 1. When you learn about a network data error, open `Data Error Log.xlsx` which is saved in `RADAR/Documents/Network Working Group/Documents`.
