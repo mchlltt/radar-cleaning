@@ -31,26 +31,26 @@ wave1Att <- getDyadAttributes(graph, 1)
 wave2Att <- getDyadAttributes(graph, 2)
 wave3Att <- getDyadAttributes(graph, 3)
 wave4Att <- getDyadAttributes(graph, 4)
-wave5Att <- getDyadAttributes(graph, 5)
+# wave5Att <- getDyadAttributes(graph, 5)
 
 wave1Att$radarid <- substr(wave1Att$alter.alter_id,1,4)
 wave2Att$radarid <- substr(wave2Att$alter.alter_id,1,4)
 wave3Att$radarid <- substr(wave3Att$alter.alter_id,1,4)
 wave4Att$radarid <- substr(wave4Att$alter.alter_id,1,4)
-wave5Att$radarid <- substr(wave5Att$alter.alter_id,1,4)
+# wave5Att$radarid <- substr(wave5Att$alter.alter_id,1,4)
 
 wave1Att$visitNumber <- 1
 wave2Att$visitNumber <- 2
 wave3Att$visitNumber <- 3
 wave4Att$visitNumber <- 4
-wave5Att$visitNumber <- 5
+# wave5Att$visitNumber <- 5
 
 # Extract all partners.
 wave1Prt <- subset(wave1Att,(!is.na(wave1Att$seriousRel) | !is.na(wave1Att$sex)))
 wave2Prt <- subset(wave2Att,(!is.na(wave2Att$seriousRel) | !is.na(wave2Att$sex)))
 wave3Prt <- subset(wave3Att,(!is.na(wave3Att$seriousRel) | !is.na(wave3Att$sex)))
 wave4Prt <- subset(wave4Att,(!is.na(wave4Att$seriousRel) | !is.na(wave4Att$sex)))
-wave5Prt <- subset(wave5Att,(!is.na(wave5Att$seriousRel) | !is.na(wave5Att$sex)))
+# wave5Prt <- subset(wave5Att,(!is.na(wave5Att$seriousRel) | !is.na(wave5Att$sex)))
 
 # Sort by recency of sex with each partner.
 # Sort by last sex date and then RADAR ID.
@@ -58,13 +58,13 @@ wave1Prt <- wave1Prt[order(as.Date(wave1Prt$dyad_edge.lastSex,format = "%m/%d/%Y
 wave2Prt <- wave2Prt[order(as.Date(wave2Prt$dyad_edge.lastSex,format = "%m/%d/%Y"),decreasing = TRUE),]
 wave3Prt <- wave3Prt[order(as.Date(wave3Prt$dyad_edge.lastSex,format = "%m/%d/%Y"),decreasing = TRUE),]
 wave4Prt <- wave4Prt[order(as.Date(wave4Prt$dyad_edge.lastSex,format = "%m/%d/%Y"),decreasing = TRUE),]
-wave5Prt <- wave5Prt[order(as.Date(wave5Prt$dyad_edge.lastSex,format = "%m/%d/%Y"),decreasing = TRUE),]
+# wave5Prt <- wave5Prt[order(as.Date(wave5Prt$dyad_edge.lastSex,format = "%m/%d/%Y"),decreasing = TRUE),]
 
 wave1Prt <- wave1Prt[order(wave1Prt$radarid),]
 wave2Prt <- wave2Prt[order(wave2Prt$radarid),]
 wave3Prt <- wave3Prt[order(wave3Prt$radarid),]
 wave4Prt <- wave4Prt[order(wave4Prt$radarid),]
-wave5Prt <- wave5Prt[order(wave5Prt$radarid),]
+# wave5Prt <- wave5Prt[order(wave5Prt$radarid),]
 
 # Assign ranks by most recent sex act
 # Call every alter the most recent sex partner for their ego
@@ -72,7 +72,7 @@ wave1Prt$recent <- 1
 wave2Prt$recent <- 1
 wave3Prt$recent <- 1
 wave4Prt$recent <- 1
-wave5Prt$recent <- 1
+# wave5Prt$recent <- 1
 
 # Then decrease this rank whenever there is a more recent sex partner for their ego
 # Wave 1
@@ -112,17 +112,18 @@ for (i in 2:length(wave4Prt$radarid)) {
 }
 
 # Wave 5
-for (i in 2:length(wave5Prt$radarid)) {
-  if (!is.na(wave5Prt$dyad_edge.lastSex[i])) {
-    if (wave5Prt$radarid[i] == wave5Prt$radarid[i - 1]) {
-      wave5Prt$recent[i] <- wave5Prt$recent[i - 1] + 1
-    }
-  }
-}
+# for (i in 2:length(wave5Prt$radarid)) {
+#   if (!is.na(wave5Prt$dyad_edge.lastSex[i])) {
+#     if (wave5Prt$radarid[i] == wave5Prt$radarid[i - 1]) {
+#       wave5Prt$recent[i] <- wave5Prt$recent[i - 1] + 1
+#     }
+#   }
+# }
 
 ## MERGE ACROSS VISITS
 
-allPrt <- Reduce(rbind,list(wave1Prt,wave2Prt,wave3Prt,wave4Prt,wave5Prt))
+allPrt <- Reduce(rbind,list(wave1Prt,wave2Prt,wave3Prt,wave4Prt))
+# allPrt <- Reduce(rbind,list(wave1Prt,wave2Prt,wave3Prt,wave4Prt,wave5Prt))
 
 # For those who did not have a most recent sex date, set "recent" to 0.
 allPrt$recent[is.na(allPrt$dyad_edge.lastSex)] <- 0
