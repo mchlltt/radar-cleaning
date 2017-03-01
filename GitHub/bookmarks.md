@@ -5,3 +5,4 @@
 - [Cypher/Neo4j cheatsheet](http://neo4j.com/docs/cypher-refcard/current/?utm_source=browser&utm_medium=motd&utm_content=blog&utm_campaign=browser)
 - [Neo4j/Cypher Docs](https://neo4j.com/docs/developer-manual/current/cypher/#query-read)
 - [py2neo Docs](http://py2neo.org/v3/)
+- [Pro Git book](https://git-scm.com/book/en/v2)
