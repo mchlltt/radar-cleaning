@@ -8,13 +8,13 @@ filenames <- list.files(path = 'Misc/', full.names = TRUE, pattern = '*.R')
 
 # If you got results, you know you are in the root folder and can run the configuration script from there.
 if (length(filenames) > 0) {
-  con <- file("configure_miscscripts.txt")
+  con <- file("configure_miscscripts.R")
   source(con)
   close(con)
 # Otherwise, you must be one level down, so run these operations from that position in the file tree.
 } else {
   filenames = list.files('../Misc/', full.names = TRUE, pattern = '*.R')
-  con <- file("../configure_miscscripts.txt")
+  con <- file("../configure_miscscripts.R")
   source(con)
   close(con)
 }
@@ -36,7 +36,7 @@ if (length(altGen) == 1 &
     length(partnerNames) == 1 &
     length(uneditedChecks) == 1 &
     length(weeklyUpdate) == 1 &
-    length(PLoTMEPull == 1)) {
+    length(PLoTMEPull) == 1) {
   # Each script has a boolean variable at the beginning of configure_miscscripts.txt that determines whether the script will be run.
   # If you want a script to run, you must change the relevant variable to TRUE and vice versa if you would like them to not run.
   # NOTE: A few scripts require Neo4j. If you have these scripts' run variables set to TRUE,
