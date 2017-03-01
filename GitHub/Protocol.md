@@ -4,10 +4,12 @@
 
 ### Data access
 1. Need REDCap RADAR Survey data access. (RADAR Data Manager)
-2. Need access to private `radar-datapull`, `radar-database`, and `radar-weeklyUpdate` GitHub repositories. (RADAR Network Data Manager)
-3. Need read/write/modify access to the `RADAR` folder on the shared drive. (ISGMH Research Project Coordinator)
+2. Need read/write/modify access to the `RADAR` folder on the shared drive. (ISGMH Research Project Coordinator)
+3. Need access to private `radar-datapull`, `radar-database`, and `radar-weeklyUpdate` GitHub repositories. (RADAR Network Data Manager)
 4. Preferably, access to private `radar-protocol` and `radar-macronetwork` GitHub repositories. (RADAR Network Data Manager)
 5. Preferably, REDCap RADAR Participant Tracking and/or RADAR Google Calendar access. (RADAR Data Manager and/or Project Director)
+
+Anyone who will be working with this data on an ongoing basis should also be added as a collaborator on this repository and any other appropriate repositories.
 
 ### Browser prep
 1. Bookmark the sites included in `bookmarks.md`.
